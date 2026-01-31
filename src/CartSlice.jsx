@@ -7,8 +7,6 @@ export const CartSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
-        console.log('handling addItem');
-        console.log(action);
         const { name, image, cost } = action.payload; // Destructure product details from the action payload
         // Check if the item already exists in the cart by comparing names
         const existingItem = state.items.find(item => item.name === name);
@@ -18,20 +16,10 @@ export const CartSlice = createSlice({
         } else {
             // If item does not exist, add it to the cart with quantity 1
             state.items.push({ name, image, cost, quantity: 1 });
-            console.log('Items: ' + state.items.length);
         }
-        console.log('Cart state: ' + state.items.length + ' items');
-        state.items.forEach((item) => {
-            console.log(item.name + ': ' + item.quantity);
-        });
     },
     removeItem: (state, action) => {
-        console.log('Before remove. Cart state: ' + state.items.length + ' items');
         state.items = state.items.filter(item => item.name !== action.payload.name);
-        console.log('After remove. Cart state: ' + state.items.length + ' items');
-        state.items.forEach((item) => {
-            console.log(item.name + ': ' + item.quantity);
-        });
     },
     updateQuantity: (state, action) => {
         const { name, quantity } = action.payload; // Destructure the product name and new quantity from the action payload
@@ -40,10 +28,6 @@ export const CartSlice = createSlice({
         if (itemToUpdate) {
             itemToUpdate.quantity = quantity; // If the item is found, update its quantity to the new value
         }
-        console.log('Cart state: ' + state.items.length +  'items');
-        state.items.forEach((item) => {
-            console.log(item.name + ': ' + item.quantity);
-        });
     },
   },
 });
